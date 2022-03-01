@@ -3,7 +3,6 @@ Insert origin source (file name) as first column"""
 
 import os
 import pandas as pd
-from openpyxl import load_workbook
 
 # copy&paste directory address of source folder NOTE: "/" at the end is important
 path = r'C:\Users\jbae1\Downloads\Dummy Files\/'
@@ -18,13 +17,13 @@ for root, directories, file in os.walk(path):
     for file in file:
         if file.endswith('.xlsx'):
 
-            df = pd.read_excel(path+file)  # reads excel file
+            df = pd.read_excel(path+file, header=0)  # reads excel file
             workbook = pd.DataFrame(df)  # assigns data frame to read excel file
+            workbook = workbook.set_axis(['timestamp', 'ballot id', 'pin', 'votes cast'], axis=1)
             workbook['File Name'] = file  # appends new column with file name
-            #print (workbook)
 
             # append rows to output data frame
-            mergedxlsx = mergedxlsx.append(workbook, ignore_index=True)
+            mergedxlsx = mergedxlsx.append(workbook, ignore_index=False)
 
     print('Excel merge completed.')  # notifies you when merge is finished
     mergedxlsx.to_excel(outputfile, index=False)  # saves output data frame to output excel file
