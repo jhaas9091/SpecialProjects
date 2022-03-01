@@ -1,5 +1,5 @@
 """Merge all xlsx files into one master spreadsheet
-Insert origin source (file name) as last column"""
+Insert origin source (file name) as first column"""
 
 import os
 import pandas as pd
@@ -28,4 +28,5 @@ for root, subdir, file in os.walk(path):
 
 print('Excel merge completed.')  # notifies you when merge is finished
 mergedxlsx.to_excel(outputfile, index=False)  # saves output data frame to output excel file
+
 
