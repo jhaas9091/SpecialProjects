@@ -18,7 +18,7 @@ for root, subdir, file in os.walk(path):
     for file in file:
         if file.endswith('.xlsx'):
 
-            df = pd.read_excel((os.path.join(root, file)), header=0, dtype=str)  # reads excel file
+            df = pd.read_excel((os.path.join(root, file)), header=0, dtype={'BALLOT ID': str, 'PIN': str})  # reads excel file
             workbook = pd.DataFrame(df)  # assigns data frame to read excel file
             workbook = workbook.set_axis(['timestamp', 'ballot id', 'pin', 'votes cast'], axis=1)
             workbook['File Name'] = file  # inserts file name
@@ -28,5 +28,4 @@ for root, subdir, file in os.walk(path):
 
 print('Excel merge completed.')  # notifies you when merge is finished
 mergedxlsx.to_excel(outputfile, index=False)  # saves output data frame to output excel file
-
 
